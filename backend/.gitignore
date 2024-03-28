@@ -11,6 +11,7 @@
 .idea/
 *.sublime-project
 *.sublime-workspace
+.env
 
 # Ignore dependencies installed via package managers
 /node_modules/
