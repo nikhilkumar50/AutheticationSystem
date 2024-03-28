@@ -16,8 +16,10 @@ User Interface
 
 ![Screenshot 2024-03-29 013334](https://github.com/nikhilkumar50/AutheticationSystem/assets/118098709/da2763dc-3fce-4cd0-9bca-13f9a8cfead6)
 
-Technologies User-
+
+Technologies Used-
 Frontend-React.js, TailwindCss, Redux
+
 Backend- Node.js ,Express.js ,MongoDB
 
 ## Cloning the Repository
