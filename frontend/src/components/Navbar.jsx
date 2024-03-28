@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { useRecoilValue } from "recoil";
-import userAtom from "../atoms/userAtom";
-import { useSetRecoilState } from "recoil";
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../slices/userSlice'; 
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const navigate = useNavigate();
-  const user = useRecoilValue(userAtom);
-  const setUser = useSetRecoilState(userAtom);
-
+  const user = useSelector((state) => state.user.user); 
+  const dispatch = useDispatch(); 
+  
   const handleNav = () => {
     setNav(!nav);
   };
@@ -30,7 +29,7 @@ const Navbar = () => {
         return;
       }
       localStorage.removeItem("user-connective");
-      setUser(null);
+      dispatch(setUser(null));
       navigate("/auth");
     } catch (error) {
       showToast("Error", data.error, "error");
@@ -49,7 +48,7 @@ const Navbar = () => {
         <div className="hidden md:flex md:flex-row">
           <button
             onClick={handleLogout}
-            className="ml-2 px-4  bg-gradient-to-br from-blue-700 via-blue-500 to-blue-400 text-white rounded-sm shadow-xl hover:shadow-2xl"
+            className="ml-2 px-4 py-2  bg-gradient-to-br from-blue-700 via-blue-500 to-blue-400 text-white rounded-sm shadow-xl hover:shadow-2xl"
           >
             Sign Out
           </button>

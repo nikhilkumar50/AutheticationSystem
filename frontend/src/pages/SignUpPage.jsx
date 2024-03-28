@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import signupImage from "../assets/login.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import userAtom from "../atoms/userAtom";
-import { useSetRecoilState } from "recoil";
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, setLoginError, clearUser } from '../slices/userSlice';
 
 const signupPage = () => {
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.user.error);
 
   const navigate = useNavigate();
-  const setUser = useSetRecoilState(userAtom);
+  
 
   const handleSignup = async () => {
     try {
@@ -32,15 +33,15 @@ const signupPage = () => {
       console.log(data);
 
       if (data.error) {
-        setError(data.error);
+        dispatch(setLoginError(data.error));
       } else {
         localStorage.setItem("user-auth", JSON.stringify(data));
-        setUser(data);
+        dispatch(setUser(data));
         navigate("/");
       }
     } catch (error) {
       console.error("Error Signup in:", error);
-      setError("An unexpected error occurred. Please try again later.");
+      dispatch(setLoginError("An unexpected error occurred. Please try again later."));
     }
   };
 

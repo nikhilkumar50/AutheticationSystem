@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
-import userAtom from "./atoms/userAtom";
-import { useRecoilValue } from "recoil";
 import SignUpPage from "./pages/SignUpPage"
+import { useSelector } from 'react-redux';
+import { setUser } from './slices/userSlice';
+import { store } from './store';
+
+
 
 
 const App = () => {
-  const user = useRecoilValue(userAtom);
+  useEffect(() => { 
+    const storedUser = localStorage.getItem('user-auth');
+    if (storedUser) {
+        store.dispatch(setUser(JSON.parse(storedUser)));
+    }
+  }, []);
+  const user = useSelector((state) => state.user.user); 
   
   return (
     <Layout>
